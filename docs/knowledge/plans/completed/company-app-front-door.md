@@ -1,6 +1,7 @@
 # Tech Bizz Expo app · Company front door
 
-Status: Blocked
+Status: Completed
+Completed: 2026-11-15
 
 Prepared 2026-11-15 for GPT-6 Luna. Implementation belongs in the existing checkout at /Users/apache/techbizz/techbizz-expo-app. Read AGENTS.md and this plan in full, check HEAD and git status, preserve unrelated changes, and set this plan to In progress when starting.
 
@@ -108,7 +109,7 @@ References: [Expo SDK 58](https://docs.expo.dev/versions/v58.0.0/), [SDK 58 Nati
 
 ## Verification log · 2026-11-15
 
-Expo changes are in the local working tree. Local web and Android checks passed. The plan remains open for the iOS runtime smoke check. Production API availability is tracked separately for release.
+The initial implementation was committed as `ec22779`. The follow-up verified iOS in Device Hub, fixed the navigation buttons, and restored the descriptions on the Home service previews. Production API availability is tracked separately for release.
 
 ### Repository checks
 
@@ -120,12 +121,14 @@ Expo changes are in the local working tree. Local web and Android checks passed.
 - Inline Node.js `assert/strict` comparison against the local Next.js production servers — passed for both feeds. Expo proxy JSON deep-equaled its source JSON and returned `Cache-Control: no-store`.
 - Inline Node.js POST checks against both Expo API paths — both returned 405. The app and verification did not send any non-GET requests to portfolio APIs or Google Sheets.
 - Local stub checks — passed for valid JSON (200), upstream HTML and malformed JSON (both 502); response bodies remained JSON and success responses were no-store. Model checks confirmed unknown icon IDs are retained for UI fallback, while malformed optional email/phone fields are omitted independently. Browser-intercepted failure/recovery checks confirmed one source can fail while the other remains available and that Retry succeeds after the company upstream recovers.
+- On follow-up, the Node.js comparison under Local servers and devices passed again with HTTP 200 and exact JSON equality for both feeds. After the UI fixes, reran `npm run lint`, `npx --no-install tsc --noEmit`, `npx --no-install expo export --platform all`, `git diff --check`, and `node /tmp/techbizz-expo-check.mjs`. All passed.
 
 ### Native device checks
 
 - Android emulator was present (`emulator-5554`). Its preinstalled Expo Go was SDK 54. Per Expo's SDK mismatch guidance, installed a matching client with `npx expo-go download android 58` (downloaded Expo Go 58.0.5) and `adb install -r Expo-Go-58.0.5.apk`. The downloaded APK was removed from the repository after installation.
 - Android Expo Go opened the SDK 58.0.0 project from `exp://127.0.0.1:8081`. Local source origins were connected with `adb reverse tcp:3101 tcp:3101` and `adb reverse tcp:3102 tcp:3102`. Home, Services, and Company rendered; real service data, contact actions, Susant Paudel's portrait, and “CEO, Tech Bizz” rendered. Android opened the configured `mailto:` intent in Gmail Compose and the `https://wa.me/…` URL in Chrome. Both were closed without sending a message.
-- iOS Expo Go 58.0.7 was installed on the iPhone 17 simulator. The first attempt reached the system confirmation prompt and then tried to open the former Simulator app. The follow-up confirmed macOS 27.2 and Xcode 27.0 and opened Device Hub successfully. Terminal UI automation was denied Accessibility access (`osascript is not allowed assistive access`, `-25211`). Use the Device Hub screen to accept the prompt and run the iOS smoke check. iOS export passed; runtime behavior remains unverified.
+- iOS Expo Go 58.0.7 on the iPhone 17 simulator (iOS 26.0) opened the SDK 58 project after clicking **Open** in Xcode 27 Device Hub. Verified Home with real content and service previews, Services with API descriptions, and Company with the contact panel and Susant Paudel's portrait and “CEO, Tech Bizz” label. Checked the navigation style fix by tapping **Explore services** and **Get in touch** from Home. Verified the company WhatsApp action opened Safari at `wa.me`. The simulator lacks Mail. A direct `xcrun simctl openurl booted 'mailto:<company-email>'` using the address from the local feed returned OSStatus `-10814`, and the app showed its expected “Could not open this link.” fallback. No messages were sent. Native screenshots were taken with `xcrun simctl io booted screenshot`.
+- Android follow-up used `adb shell input tap` and `adb shell uiautomator dump` to confirm both Home action labels appeared and **Explore services** selected the Services tab.
 
 ### Release checks after portfolio deployment
 
@@ -139,4 +142,4 @@ Expo changes are in the local working tree. Local web and Android checks passed.
 | --- | --- |
 | Web | Browser route, API, responsive, theme, loading, and retry checks passed. |
 | Android | SDK 58 Expo Go on `emulator-5554`; Home, Services, Company, data, portrait, and contact intents passed. |
-| iOS | Bundle export passed. The Device Hub launch and smoke check remain pending. |
+| iOS | Device Hub smoke check passed on iPhone 17, including the expected fallback when no Mail handler is installed. Sending or composing email on a physical iPhone was not exercised. |

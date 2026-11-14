@@ -24,7 +24,13 @@ export function Section({ title, children, onLayout }: { title: string; children
 }
 
 export function ActionLink({ href, children }: { href: '/services' | '/company?section=contact'; children: string }) {
-  return <Link href={href} asChild><Pressable accessibilityRole="link" style={({ pressed }) => [styles.action, pressed && styles.pressed]}><ThemedText selectable style={styles.actionText}>{children}</ThemedText></Pressable></Link>;
+  return (
+    <Link href={href} asChild>
+      <Pressable accessibilityRole="link" style={styles.action}>
+        <ThemedText selectable style={styles.actionText}>{children}</ThemedText>
+      </Pressable>
+    </Link>
+  );
 }
 
 export function RetryStatus({ loading, error, retry, emptyText }: { loading: boolean; error?: Error; retry: () => void; emptyText: string }) {
@@ -55,7 +61,7 @@ export function ServiceCard({ item, compact = false }: { item: ServiceItem; comp
   return <ThemedView type="backgroundElement" style={[styles.card, compact && styles.compactCard, !compact && columns === 2 && styles.gridCard]}>
     <View accessibilityElementsHidden><ContentIcon id={item.icon} size={26} /></View>
     <ThemedText selectable type="smallBold">{item.title}</ThemedText>
-    {!compact && <ThemedText selectable>{item.description}</ThemedText>}
+    <ThemedText selectable>{item.description}</ThemedText>
   </ThemedView>;
 }
 

@@ -6,7 +6,7 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 
 - **Decision.** The host app root and package name are `techbizz-expo-app`. The app uses Expo and React Native.
 
-- **Decision.** The app opens on Tech Bizz. Its Company screen uses selected personal portfolio data for the CEO profile. See the [company app implementation plan](../plans/ongoing/company-app-front-door.md).
+- **Decision.** The app opens on Tech Bizz. Its Company screen uses selected personal portfolio data for the CEO profile. See the [company app implementation plan](../plans/completed/company-app-front-door.md).
 
 ## P1 · Architecture and workflow
 
@@ -16,5 +16,5 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 
 ## P2 · Verification
 
-- **Verification.** Lint, TypeScript, Expo export for all platforms, and `git diff --check` passed. Local API JSON matched both Next.js source APIs, and browser and Android checks passed. The iOS bundle exported successfully. The iOS smoke check still needs to be run in Xcode 27 Device Hub. Check public endpoints after the portfolio API revisions deploy. See the [implementation plan and startup steps](../plans/ongoing/company-app-front-door.md).
+- **Verification.** Lint, TypeScript, Expo export for all platforms, and `git diff --check` passed. Local API JSON matched both Next.js source APIs. Browser, Android emulator, and iPhone 17 Device Hub smoke checks passed. The iOS simulator showed the expected fallback for its missing Mail handler. Check public endpoints after the portfolio API revisions deploy. See the [implementation plan and startup steps](../plans/completed/company-app-front-door.md).
 - **Verification.** npm reported eight moderate dependency advisories after Expo’s lint tooling installation. Recheck against the current lockfile with `npm audit`.
