@@ -39,3 +39,18 @@ Docs: https://docs.expo.dev/eas/index.md
 - If `ios/` and `android/` directories do not exist, they are generated (Continuous Native Generation). Never create or edit them by hand — configure native behavior in `app.json` and config plugins.
 - Expo Go only includes its bundled native modules. After adding a library with native code, the app needs a development build: `npx expo run:ios|android` locally, or `eas build --profile development`.
 - Prefer recommended Expo modules over third-party libraries, and check your available skills before adding dependencies. Docs: https://docs.expo.dev/versions/latest/index.md
+
+## Shared project knowledge
+
+Scope covers `susantpaudel.com.np`, `techbizz-portfolio`, and this Expo app. Keep cross-project documentation in this repository under `docs/knowledge/`. Start with [the index](docs/knowledge/INDEX.md) and load only the notes relevant to the task. Use the current source to verify dated notes.
+
+## Implementation plans
+
+Write plans for GPT-6 Luna to implement using the plan and the current checkout. Resolve decisions and conflicting requirements before marking a plan ready. Ask a focused question when the source and user instructions leave a material choice open.
+
+- Inspect the current code and name the affected repositories, entry points, and source files. Specify the intended outcome, scope, and existing behavior to preserve.
+- Describe the edits in implementation order. Include exact paths, old-to-new mappings, interfaces, callers, and cleanup when those details affect correctness.
+- Give reproducible verification commands, test inputs, and expected results. Record known baseline failures and specify how to verify integrations without unintended writes.
+- Read the plan once as the implementer and close gaps that would require guessing.
+- Keep open plans under `docs/knowledge/plans/ongoing/`. Give each plan a `Status:` line and update it as work progresses. Use **Draft** while decisions are open, **Ready** when the handoff is complete, **In progress** during implementation, or **Blocked** when work cannot continue. Record the blocker and the condition that would unblock it.
+- After implementation meets the acceptance criteria, record the completion date and verification results, set the status to **Completed**, and move the same file to `docs/knowledge/plans/completed/`. Update inbound links to the new path and keep reusable reference material in `docs/knowledge/topics/`.

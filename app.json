@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "techbizz-express-app",
-    "slug": "techbizz-express-app",
+    "name": "techbizz-expo-app",
+    "slug": "techbizz-expo-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "techbizzexpressapp",
+    "scheme": "techbizzexpoapp",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
