@@ -94,16 +94,7 @@ for (const [source, port] of [['company', 3102], ['personal', 3101]]) {
 NODE
 ```
 
-**Android.** Reuse `emulator-5554` if `adb devices -l` shows it as `device`. From a cold start, run `"$ANDROID_HOME/emulator/emulator" -list-avds`, then start this host's configured device in its own terminal with `"$ANDROID_HOME/emulator/emulator" -avd Pixel_3a_API_34_extension_level_7_arm64-v8a`. Android Studio → Device Manager → Play is the GUI equivalent. If the AVD list is empty, create an ARM64 phone AVD with a Google APIs image in Device Manager. Wait until the home screen appears and `adb shell getprop sys.boot_completed` prints `1`. If several devices are connected, select the emulator with `adb -s <serial>` for each command. For an old or missing Expo Go, download the matching client from a temporary folder with `npx expo-go download android 58` and install the downloaded APK with `adb install -r <apk-path>`. Then run:
-
-```sh
-adb reverse tcp:8081 tcp:8081
-adb reverse tcp:3101 tcp:3101
-adb reverse tcp:3102 tcp:3102
-adb shell am start -a android.intent.action.VIEW -d 'exp://127.0.0.1:8081'
-```
-
-**iOS on macOS 27.2 / Xcode 27.** In Xcode choose **Xcode → Open Developer Tool → Device Hub**. Select the iPhone 17 simulator and click **View Screen**. Add an iPhone simulator in Device Hub if needed. If there is no iOS runtime, install one from Xcode Settings → Components and return to Device Hub. This host also opens Device Hub with `open -a /Applications/Xcode.app/Contents/Applications/DeviceHub.app`. Use the device screen in Device Hub to open Expo Go. If Expo Go is missing or incompatible, run `npx expo-go download ios 58` in a temporary folder, then drag the extracted `.app` onto the iPhone simulator screen in Device Hub. In Expo Go select the running `techbizz-expo-app` development server or open `exp://127.0.0.1:8081` using Safari in the simulator and click **Open** on the prompt in Device Hub. Confirm Home renders real company content before proceeding to Services and Company. If terminal automation lacks macOS Accessibility access, perform the click directly in Device Hub and record the resulting screen. See [Apple's Device Hub setup](https://developer.apple.com/documentation/xcode/managing-your-simulated-and-physical-devices-in-device-hub) and [device interaction guide](https://developer.apple.com/documentation/xcode/interacting-with-your-app-in-device-hub).
+Follow the [Expo device smoke check runbook](../../topics/expo-device-smoke-check.md) with Expo Go for SDK 58 and Metro on port 8081. On this host, Android used `emulator-5554` (AVD `Pixel_3a_API_34_extension_level_7_arm64-v8a`) with reverse mappings for 8081, 3101, and 3102. iOS used the iPhone 17 simulator (iOS 26.0) in Xcode 27 Device Hub. Confirm Home renders real company content before checking Services and Company.
 
 References: [Expo SDK 58](https://docs.expo.dev/versions/v58.0.0/), [SDK 58 Native tabs](https://docs.expo.dev/versions/v58.0.0/sdk/router/native-tabs/), and [Expo Router API routes](https://docs.expo.dev/router/web/api-routes/).
 

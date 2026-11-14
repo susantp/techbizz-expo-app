@@ -44,16 +44,11 @@ Docs: https://docs.expo.dev/eas/index.md
 
 Scope covers `susantpaudel.com.np`, `techbizz-portfolio`, and this Expo app. Keep cross-project documentation in this repository under `docs/knowledge/`. Start with [the index](docs/knowledge/INDEX.md) and load only the notes relevant to the task. Use the current source to verify dated notes.
 
+For API changes, follow the [API contract and typing guide](docs/knowledge/topics/api-contracts-and-typing.md). Validate wire data at the boundary and infer types from the schema.
+
 ## Implementation plans
 
-Write plans for GPT-6 Luna to implement using the plan and the current checkout. Resolve decisions and conflicting requirements before marking a plan ready. Ask a focused question when the source and user instructions leave a material choice open.
+Write plans a fresh GPT-6 Luna session can execute from the current checkout through closeout without the chat. Follow the [plan handoff checklist](docs/knowledge/topics/plan-handoff.md) before marking a plan **Ready**.
 
-- Inspect the current code and name the affected repositories, entry points, and source files. Specify the intended outcome, scope, and existing behavior to preserve.
-- Describe the edits in implementation order. Include exact paths, old-to-new mappings, interfaces, callers, and cleanup when those details affect correctness.
-- Give reproducible verification commands, test inputs, and expected results. Record known baseline failures and specify how to verify integrations without unintended writes.
-- For an integration with an API that has just been developed, name the local source revisions and give the commands, ports, environment values, and response checks needed to run it locally. Track public endpoint checks as release work until those revisions are deployed. State which checks control implementation completion.
-- For device acceptance, check the host OS and installed tooling before marking the handoff Ready. Include steps from a stopped emulator through app launch and verification, including how to find or create a device, match the app client to the SDK, connect to local services, and recover from a failed launch.
-- Read the plan once as the implementer and close gaps that would require guessing.
-- Keep open plans under `docs/knowledge/plans/ongoing/`. Give each plan a `Status:` line and update it as work progresses. Use **Draft** while decisions are open, **Ready** when the handoff is complete, **In progress** during implementation, or **Blocked** when work cannot continue. Record the blocker and the condition that would unblock it.
-- After implementation meets the acceptance criteria, record the completion date and verification results, set the status to **Completed**, and move the same file to `docs/knowledge/plans/completed/`. Update inbound links to the new path and keep reusable reference material in `docs/knowledge/topics/`.
-- Specify Git closeout in the handoff. When a local commit is authorized, identify the repositories and changes to include, stage only the task files, review the staged diff, and record the resulting commit SHA in the handoff report. Keep an interim implementation commit separate from plan closeout when acceptance is still pending.
+- Keep open plans in `docs/knowledge/plans/ongoing/` with a `Status:` line. Use **Draft**, **Ready**, **In progress**, or **Blocked**. Recheck inherited blockers, complete independent checks, and record the current evidence and resume step.
+- Once acceptance passes, record the results and completion date, mark **Completed**, move the plan to `docs/knowledge/plans/completed/`, and update inbound links. If a local commit is authorized, review the staged task files and report the commit SHA. An interim commit leaves acceptance open.
