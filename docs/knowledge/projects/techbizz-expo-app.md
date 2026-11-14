@@ -11,6 +11,7 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 ## P1 · Architecture and workflow
 
 - **Workflow.** Use the [API contract and typing guide](../topics/api-contracts-and-typing.md) for portfolio feeds and new API integrations.
+- **Decision.** Prefer established libraries for shared infrastructure. Use TanStack Query for remote cache and retry workflows and Jotai when a feature needs shared client state. See the [library and state guide](../topics/library-and-state-choices.md).
 
 - **Architecture.** Official Expo SDK 58 default template installed with npm. The lockfile resolves Expo 58.0.25, React Native 0.88.1, React 19.3.0, and Expo Router 58.0.31. The app contains Expo sample screens and has no integration with either portfolio in this snapshot.
 - **Architecture.** `package.json` enters through `expo-router/entry`. `src/app/_layout.tsx` sets up theme, splash, portfolio content state, and tabs for Home, Services, and Company. The native and web tab implementations are `src/components/app-tabs.tsx` and `app-tabs.web.tsx`. Typed portfolio models and source-specific request state live in `src/lib/portfolio/`; web same-origin GET proxies are `src/app/api/portfolio/company+api.ts` and `personal+api.ts`. Origins are configured in ignored `.env.local` from the checked-in `.env.example`. Native fetches source APIs directly; web fetches through the Expo API routes. The app uses Continuous Native Generation.

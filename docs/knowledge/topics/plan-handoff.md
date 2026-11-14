@@ -4,6 +4,8 @@
 
 For API work, name the runtime schema, the type inferred from it, and where parsing happens. Follow the [API contract and typing guide](api-contracts-and-typing.md).
 
+For reusable infrastructure, check the existing stack and document the package choice or why custom code is justified. See the [library and state guide](library-and-state-choices.md).
+
 - Inspect the current checkout and name the repositories, revisions, entry points, and files in scope. Define the intended outcome and behavior to preserve. Order the edits and specify mappings, interfaces, callers, and cleanup wherever the implementer would otherwise have to make a material decision. Resolve conflicts before handoff and ask a focused question if the source and user instructions leave a material choice open.
 - Make acceptance runnable. Give the setup commands, working directories, test inputs, expected outcomes, and known baseline failures. For new API integrations, pin the local source revisions, ports, environment values, and response checks. State which checks close the plan. Track public endpoint verification as release work when it depends on deployment. Use mocks or read-only checks for integrations that could send messages or write data.
 - For device acceptance, verify the host OS, tools, and available devices before handoff. Link the [Expo device runbook](expo-device-smoke-check.md) and record the task’s SDK, host-specific device choices, service ports, and expected screens or actions.

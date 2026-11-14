@@ -8,14 +8,14 @@
 
 ## P1 · Portfolio integration
 
+- Reuse `src/lib/remote/get-json.ts` for JSON reads. It owns the shared HTTP status and media type checks, JSON decoding, cancellation, and the timeout through body parsing. It returns `unknown` so the endpoint caller explicitly chooses a schema. Endpoint code owns URLs, authentication requirements, validation, and error mapping. The query layer owns retry and caching policy for app data. Extend transport when a second real use calls for it.
+
 - Keep company and personal schemas distinct. Both feeds use `{ layout, page }`, but their fields differ. Keep the source key tied to its parser, returned type, and state slot. Avoid storing a union under a computed key without narrowing the key and payload together.
 - Follow the published field policy. Required company content must validate. Unusable optional Email and WhatsApp values should disappear independently. An invalid personal image keeps the name available and falls back to initials. Unknown icon IDs use a UI fallback. Never let a failed refresh replace last good data.
 - The Expo web proxies forward the complete upstream JSON. If validating a proxied response, use the schema result as a gate and forward the original parsed JSON after success, so schema stripping or transforms cannot change the response. Keep the documented HTTP error mapping and cache headers.
 
-## P2 · Current Expo gap
+## P2 · Expo implementation
 
-- Snapshot 2026-11-15. `src/lib/portfolio/model.ts` validates fields with handwritten readers and separately declares their types. `src/lib/portfolio/request.ts` parses JSON as `unknown`, but returns a union for the source key. `src/lib/portfolio/provider.tsx` writes through a computed key, so the key-to-payload relationship is not explicit at that write. The initial plan specified handwritten readers and no new packages. It did not make reuse of Zod or source-specific typing an acceptance requirement.
-- Zod 4.6.7 resolves from Expo’s installed dependencies and 4.6.4 from the company portfolio’s. Neither declares Zod directly in `package.json`. If migrating Expo to schemas, declare Zod as a direct runtime dependency and keep the existing response, normalization, and recovery behavior.
-- Acceptance for that migration should cover valid and malformed local payloads for each route, optional field degradation, unknown icons, the typed source-to-result relationship, and full JSON parity at both web proxies. Keep this as a separate implementation task from the completed front door plan.
+- `src/lib/portfolio/model.ts` owns both consumer schemas and infers their output types. `request.ts` returns the parsed result with its source key, which `provider.tsx` narrows before updating state. `web-handler.ts` validates using the same schemas and forwards the complete upstream JSON on success. Expo declares Zod 4.6.7 as a direct runtime dependency.
 
 Reference: [Zod parsing and inferred types](https://zod.dev/basics).

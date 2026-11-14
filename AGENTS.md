@@ -46,6 +46,8 @@ Scope covers `susantpaudel.com.np`, `techbizz-portfolio`, and this Expo app. Kee
 
 For API changes, follow the [API contract and typing guide](docs/knowledge/topics/api-contracts-and-typing.md). Validate wire data at the boundary and infer types from the schema.
 
+Prefer maintained, proven libraries for common infrastructure. Follow the [library and state guide](docs/knowledge/topics/library-and-state-choices.md) when choosing dependencies or adding shared state.
+
 ## Implementation plans
 
 Write plans a fresh GPT-6 Luna session can execute from the current checkout through closeout without the chat. Follow the [plan handoff checklist](docs/knowledge/topics/plan-handoff.md) before marking a plan **Ready**.
