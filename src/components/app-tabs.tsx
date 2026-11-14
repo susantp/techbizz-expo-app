@@ -20,12 +20,13 @@ export default function AppTabs() {
         />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="explore">
-        <NativeTabs.Trigger.Label>Explore</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/explore.png')}
-          renderingMode="template"
-        />
+      <NativeTabs.Trigger name="services">
+        <NativeTabs.Trigger.Label>Services</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf={{ default: 'briefcase', selected: 'briefcase.fill' }} md={{ default: 'work', selected: 'work' }} />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="company">
+        <NativeTabs.Trigger.Label>Company</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf={{ default: 'building.2', selected: 'building.2.fill' }} md={{ default: 'business', selected: 'business' }} />
       </NativeTabs.Trigger>
     </NativeTabs>
   );
