@@ -5,7 +5,7 @@ Source: `techbizz-portfolio@799eb40`, inspected 2026-11-14.
 ## P0 · API and storage contract
 
 - The client in `src/app/_components/ContactUsComponent.tsx` posts JSON to `/api/googleSheetSubmit`. Expected keys are `name`, `email`, `subject`, and `detail`.
-- The Node.js handler in `src/app/api/googleSheetSubmit/route.ts` rejects malformed JSON and missing or whitespace-only strings with 400 and a top-level `message`. Success returns `{ data }` from the Sheets append. Integration exceptions produce 500 with `data.message`.
+- The route handler in `src/app/api/googleSheetSubmit/route.ts` rejects malformed JSON and missing or whitespace-only strings with 400 and a top-level `message`. Success returns `{ data }` from the Sheets append. Integration exceptions produce 500 with `data.message`.
 - The server-only adapter `src/lib/google-sheets.ts` appends raw field strings in the order above using range `A1:D1` and `USER_ENTERED` mode. This mode interprets entries the same way as interactive Sheets input.
 
 ## P1 · Configuration

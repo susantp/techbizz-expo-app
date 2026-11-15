@@ -9,7 +9,7 @@ Prepared 2026-11-15 for GPT-6 Luna. Implementation belongs in the existing check
 
 Tech Bizz is the app identity and Home is the entry point. Launch with Home, Services, and Company. Susant Paudel appears in Company under Leadership as CEO, Tech Bizz. First release contact actions are Email and WhatsApp. Products, apps developed by Tech Bizz, clients, case studies, and the in-app inquiry form are future scope. Add those sections when their data exists. Ship no empty tabs or placeholder sections.
 
-Inspected Expo deea7e9 (SDK 58, npm, typed routes, web server output), company 30d1e1e, and personal 0212232. Both Next.js checkouts are read-only sources for this implementation. The Expo baseline commands npm run lint and npx --no-install tsc --noEmit passed. Before deployment, the personal endpoint returned HTTP 404 for /api/content. See the release checks below for the verified production endpoints. Both local branches reported one commit ahead of their recorded origin/main. Live availability is a release prerequisite. Implement and verify using the local portfolio servers now. See the [completed API migration](../completed/portfolio-content-model.md).
+Inspected Expo deea7e9 (SDK 58, typed routes, web server output), company 30d1e1e, and personal 0212232. Both Next.js checkouts are read-only sources for this implementation. The Expo baseline commands bun run lint and bun run typecheck passed. Before deployment, the personal endpoint returned HTTP 404 for /api/content. See the release checks below for the verified production endpoints. Both local branches reported one commit ahead of their recorded origin/main. Live availability is a release prerequisite. Implement and verify using the local portfolio servers now. See the [completed API migration](../completed/portfolio-content-model.md).
 
 ## P1 · Configuration and transport
 
@@ -42,7 +42,7 @@ Add src/lib/portfolio/provider.tsx and mount its provider in src/app/_layout.tsx
 
 ## P2 · Acceptance and plan lifecycle
 
-1. From Expo root, run npm run lint, npx --no-install tsc --noEmit, npx --no-install expo export --platform all and git diff --check. Compare against the baseline above. Follow the linked SDK docs for any router or image API you touch. Verify the app builds with no additional dependencies.
+1. From Expo root, run bun run lint, bun run typecheck, bun run export and git diff --check. Compare against the baseline above. Follow the linked SDK docs for any router or image API you touch. Verify the app builds with no additional dependencies.
 2. Follow [Local servers and devices](#local-servers-and-devices) from a cold start. For a physical device use reachable host LAN origins, bind both portfolio servers to `0.0.0.0`, and use reachable HTTPS development endpoints if device policy disallows LAN HTTP. Restart Expo after changing `.env.local`. Record each platform actually exercised.
 3. Check cold launch at Home, tabs and direct web route reload at /services and /company, Services counts/order, Contact navigation, and the CEO card with no YCOTEK role. Match real API copy and image origins. Check narrow/wide and light/dark layouts. Confirm native and web Email and WhatsApp destinations without sending messages. Confirm there is no POST to Google Sheets. Confirm Company lazily requests personal content and tab switches reuse the loaded content. Change one local origin to an unreachable port, then restart Expo and verify that source errors independently and the other still works. For recovery, stop and restart an upstream on its configured port and confirm Retry succeeds without restarting Expo. Use intercepts or a local stub on the same machine to verify a 200 HTML response, malformed JSON, unknown icon, and failed image. Do not deploy or push during verification.
 4. Record exact commands, results, and any unavailable devices here. The local builds contain the new APIs and control implementation acceptance. After local acceptance passes, mark Completed, record the date, move this file to `plans/completed/`, and update the Expo project note link. Track public API and hosted Expo server checks separately for release, after the portfolio revisions are deployed. Record the failed operation and what will unblock it for any unmet local acceptance item.
@@ -63,7 +63,7 @@ bun run build &&
   mkdir -p .next/standalone/public .next/standalone/.next/static &&
   cp -R public/. .next/standalone/public/ &&
   cp -R .next/static/. .next/standalone/.next/static/ &&
-  HOSTNAME=127.0.0.1 PORT=3102 node .next/standalone/server.js
+  HOSTNAME=127.0.0.1 PORT=3102 bun .next/standalone/server.js
 ```
 
 In `/Users/apache/techbizz/techbizz-expo-app`, set these keys in ignored `.env.local` and preserve any other local settings:
@@ -73,10 +73,10 @@ EXPO_PUBLIC_COMPANY_ORIGIN=http://127.0.0.1:3102
 EXPO_PUBLIC_PERSONAL_ORIGIN=http://127.0.0.1:3101
 ```
 
-Run `npm start -- --port 8081` and open `http://127.0.0.1:8081/` in the browser. Verify both sources before opening a device:
+Run `bun run start --port 8081` and open `http://127.0.0.1:8081/` in the browser. Verify both sources before opening a device:
 
 ```sh
-node --input-type=module <<'NODE'
+bun run - <<'NODE'
 import assert from 'node:assert/strict';
 for (const [source, port] of [['company', 3102], ['personal', 3101]]) {
   const upstream = await fetch(`http://127.0.0.1:${port}/api/content`);
@@ -104,19 +104,19 @@ The initial implementation was committed as `ec22779`. The follow-up verified iO
 
 ### Repository checks
 
-- `npm run lint` — passed with no diagnostics.
-- `npx --no-install tsc --noEmit` — passed.
-- `npx --no-install expo export --platform all` — passed. Exported Android and iOS bundles, web bundle, and both API routes `/api/portfolio/company` and `/api/portfolio/personal`.
+- Expo lint passed with no diagnostics.
+- TypeScript checking passed without emitting files.
+- Expo export for all platforms passed. Exported Android and iOS bundles, web bundle, and both API routes `/api/portfolio/company` and `/api/portfolio/personal`.
 - `git diff --check` — passed.
-- `node /tmp/techbizz-expo-check.mjs` — passed. Browser verified Home, Services, Company, direct reload of `/services`, Home-to-Services and contact navigation, company-only initial fetch, lazy personal fetch on Company, leadership name/title, no YCOTEK role, contact controls, image presence, and wide/dark rendering.
-- Inline Node.js `assert/strict` comparison against the local Next.js production servers — passed for both feeds. Expo proxy JSON deep-equaled its source JSON and returned `Cache-Control: no-store`.
-- Inline Node.js POST checks against both Expo API paths — both returned 405. The app and verification did not send any non-GET requests to portfolio APIs or Google Sheets.
+- Browser smoke via `/tmp/techbizz-expo-check.mjs` passed. Browser verified Home, Services, Company, direct reload of `/services`, Home-to-Services and contact navigation, company-only initial fetch, lazy personal fetch on Company, leadership name/title, no YCOTEK role, contact controls, image presence, and wide/dark rendering.
+- Inline `assert/strict` comparison against the local Next.js production servers — passed for both feeds. Expo proxy JSON deep-equaled its source JSON and returned `Cache-Control: no-store`.
+- Inline POST checks against both Expo API paths — both returned 405. The app and verification did not send any non-GET requests to portfolio APIs or Google Sheets.
 - Local stub checks — passed for valid JSON (200), upstream HTML and malformed JSON (both 502); response bodies remained JSON and success responses were no-store. Model checks confirmed unknown icon IDs are retained for UI fallback, while malformed optional email/phone fields are omitted independently. Browser-intercepted failure/recovery checks confirmed one source can fail while the other remains available and that Retry succeeds after the company upstream recovers.
-- On follow-up, the Node.js comparison under Local servers and devices passed again with HTTP 200 and exact JSON equality for both feeds. After the UI fixes, reran `npm run lint`, `npx --no-install tsc --noEmit`, `npx --no-install expo export --platform all`, `git diff --check`, and `node /tmp/techbizz-expo-check.mjs`. All passed.
+- On follow-up, the API comparison under Local servers and devices passed again with HTTP 200 and exact JSON equality for both feeds. After the UI fixes, reran lint, typechecking, all-platform export, `git diff --check`, and the browser smoke check. All passed.
 
 ### Native device checks
 
-- Android emulator was present (`emulator-5554`). Its preinstalled Expo Go was SDK 54. Per Expo's SDK mismatch guidance, installed a matching client with `npx expo-go download android 58` (downloaded Expo Go 58.0.5) and `adb install -r Expo-Go-58.0.5.apk`. The downloaded APK was removed from the repository after installation.
+- Android emulator was present (`emulator-5554`). Its preinstalled Expo Go was SDK 54. Per Expo's SDK mismatch guidance, installed a matching client with the Expo Go download CLI (downloaded Expo Go 58.0.5) and `adb install -r Expo-Go-58.0.5.apk`. The downloaded APK was removed from the repository after installation.
 - Android Expo Go opened the SDK 58.0.0 project from `exp://127.0.0.1:8081`. Local source origins were connected with `adb reverse tcp:3101 tcp:3101` and `adb reverse tcp:3102 tcp:3102`. Home, Services, and Company rendered; real service data, contact actions, Susant Paudel's portrait, and “CEO, Tech Bizz” rendered. Android opened the configured `mailto:` intent in Gmail Compose and the `https://wa.me/…` URL in Chrome. Both were closed without sending a message.
 - iOS Expo Go 58.0.7 on the iPhone 17 simulator (iOS 26.0) opened the SDK 58 project after clicking **Open** in Xcode 27 Device Hub. Verified Home with real content and service previews, Services with API descriptions, and Company with the contact panel and Susant Paudel's portrait and “CEO, Tech Bizz” label. Checked the navigation style fix by tapping **Explore services** and **Get in touch** from Home. Verified the company WhatsApp action opened Safari at `wa.me`. The simulator lacks Mail. A direct `xcrun simctl openurl booted 'mailto:<company-email>'` using the address from the local feed returned OSStatus `-10814`, and the app showed its expected “Could not open this link.” fallback. No messages were sent. Native screenshots were taken with `xcrun simctl io booted screenshot`.
 - Android follow-up used `adb shell input tap` and `adb shell uiautomator dump` to confirm both Home action labels appeared and **Explore services** selected the Services tab.

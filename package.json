@@ -36,12 +36,18 @@
     "typescript": "~6.0.3"
   },
   "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "lint": "expo lint"
+    "start": "bun --bun expo start",
+    "reset-project": "bun ./scripts/reset-project.js",
+    "android": "bun --bun expo start --android",
+    "ios": "bun --bun expo start --ios",
+    "web": "bun --bun expo start --web",
+    "lint": "bun --bun expo lint",
+    "typecheck": "bun --bun tsc --noEmit",
+    "export": "bun --bun expo export --platform all"
   },
-  "private": true
+  "private": true,
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "bun": ">=1.4.4"
+  }
 }
