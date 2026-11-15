@@ -16,6 +16,6 @@
 
 ## P2 · Expo implementation
 
-- `src/lib/portfolio/model.ts` owns both consumer schemas and infers their output types. `request.ts` returns the parsed result with its source key, which `provider.tsx` narrows before updating state. `web-handler.ts` validates using the same schemas and forwards the complete upstream JSON on success. Expo declares Zod 4.6.7 as a direct runtime dependency.
+- `src/lib/portfolio/model.ts` owns both consumer schemas and infers their output types. `request.ts` exposes source-specific functions that parse with the matching schema and return the inferred type. TanStack Query calls these functions and owns the remote cache and request lifecycle. `web-handler.ts` validates using the same schemas and forwards the complete upstream JSON on success. Expo declares Zod 4.6.7 as a direct runtime dependency.
 
 Reference: [Zod parsing and inferred types](https://zod.dev/basics).

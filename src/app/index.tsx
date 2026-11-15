@@ -1,6 +1,6 @@
 import { ActionLink, CompanyHeader, RefreshRetry, RetryStatus, Screen, Section, ServiceCard } from '@/components/company/ui';
 import { ThemedText } from '@/components/themed-text';
-import { useCompanyContent } from '@/lib/portfolio/provider';
+import { useCompanyContent } from '@/lib/portfolio/hooks';
 import { View } from 'react-native';
 
 export default function HomeScreen() {

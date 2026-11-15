@@ -4,7 +4,7 @@ import { useColorScheme } from 'react-native';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import AppTabs from '@/components/app-tabs';
-import { PortfolioProvider } from '@/lib/portfolio/provider';
+import { PortfolioQueryProvider } from '@/lib/portfolio/query-provider';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,9 +13,9 @@ export default function TabLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AnimatedSplashOverlay />
-      <PortfolioProvider>
+      <PortfolioQueryProvider>
         <AppTabs />
-      </PortfolioProvider>
+      </PortfolioQueryProvider>
     </ThemeProvider>
   );
 }

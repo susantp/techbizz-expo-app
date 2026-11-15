@@ -4,7 +4,7 @@ import { type ScrollViewInstance } from 'react-native';
 
 import { CompanyHeader, ContactActions, LeadershipCard, RefreshRetry, RetryStatus, Screen, Section } from '@/components/company/ui';
 import { ThemedText } from '@/components/themed-text';
-import { useCompanyContent, usePersonalContent } from '@/lib/portfolio/provider';
+import { useCompanyContent, usePersonalContent } from '@/lib/portfolio/hooks';
 
 export default function CompanyScreen() {
   const company = useCompanyContent();

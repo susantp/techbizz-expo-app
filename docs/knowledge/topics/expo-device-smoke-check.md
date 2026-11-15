@@ -2,6 +2,16 @@
 
 Read the task plan for the Expo SDK, local origins, ports, and acceptance scenarios. Start the Expo development server and local dependencies first. Verify they respond from the host before troubleshooting device connectivity.
 
+## Desktop interaction preflight
+
+For Device Hub, prefer the desktop app's **Computer Use** plugin, shown as **Computer** or `@Computer` in supported chats. Before relying on it in a handoff, confirm the local execution session exposes interactive controls and can open Device Hub. On macOS, the plugin needs Screen Recording and Accessibility permissions. If the current session lacks the tool, use an authorized local session with Computer Use enabled, or record the exact taps the user can perform in Device Hub. See [OpenAI's Computer Use setup](https://developers.openai.com/training/walkthroughs/using-your-computer-and-browser).
+
+The ChatGPT menu bar can show **Computer Use → No Active Sessions**. This reports that no Computer Use session is running at that moment. Check the implementing chat separately for interactive controls before counting on them for acceptance.
+
+Click the simulator's controls with Computer Use, another available UI driver, or manual input and observe the result. Screenshots and deep links can confirm rendering. To verify a button or tab, perform that interaction and observe the resulting route. Record which interaction method ran and any remaining manual step. For Android, ADB input and a UI hierarchy dump can verify the same actions. Use the CLI for lint, TypeScript, Expo export, and exact API comparisons.
+
+On a locked Mac, a temporary XCTest UI test target can drive an already booted iOS simulator directly with `xcodebuild test`. Open the project in Expo Go, then activate `XCUIApplication(bundleIdentifier: "host.exp.Exponent")` from the test. Dismiss the Expo Go developer menu if it covers the app. Assert the selected tab and visible destination after each tap. Keep the fixture outside the app repo for a one-time check.
+
 ## Android emulator
 
 1. Run `adb devices -l`. Reuse a booted emulator listed as `device`, or list AVDs with `"$ANDROID_HOME/emulator/emulator" -list-avds` and start the selected one with `"$ANDROID_HOME/emulator/emulator" -avd <avd-name>`. Android Studio → Device Manager → Play is the GUI equivalent. Create a phone AVD with a Google APIs image for the host architecture if the list is empty.

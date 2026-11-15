@@ -1,21 +1,18 @@
 import { getJson } from '../remote/get-json';
 import { getPortfolioOrigin, type PortfolioSource } from './config';
-import { portfolioSchemas, type PortfolioContent } from './model';
+import { portfolioSchemas, type CompanyContent, type PersonalContent } from './model';
 
-type PortfolioResult = {
-  [Source in PortfolioSource]: { source: Source; data: PortfolioContent[Source] };
-}[PortfolioSource];
-
-export async function requestPortfolio(
-  source: PortfolioSource,
-  signal?: AbortSignal,
-): Promise<PortfolioResult> {
+async function getPortfolioPayload(source: PortfolioSource, signal?: AbortSignal): Promise<unknown> {
   const path = process.env.EXPO_OS === 'web'
     ? '/api/portfolio/' + source
     : getPortfolioOrigin(source) + '/api/content';
-  const payload = await getJson(path, { signal });
-  if (source === 'company') {
-    return { source, data: portfolioSchemas.company.parse(payload) };
-  }
-  return { source, data: portfolioSchemas.personal.parse(payload) };
+  return getJson(path, { signal });
+}
+
+export async function fetchCompanyContent(signal?: AbortSignal): Promise<CompanyContent> {
+  return portfolioSchemas.company.parse(await getPortfolioPayload('company', signal));
+}
+
+export async function fetchPersonalContent(signal?: AbortSignal): Promise<PersonalContent> {
+  return portfolioSchemas.personal.parse(await getPortfolioPayload('personal', signal));
 }
