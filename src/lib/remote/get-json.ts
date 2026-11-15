@@ -25,8 +25,7 @@ export async function getJson(
     const mediaType = response.headers.get('content-type')?.split(';', 1)[0]?.trim().toLowerCase();
     if (mediaType !== 'application/json') throw new Error('Remote response is not JSON');
 
-    const payload: unknown = await response.json();
-    return payload;
+    return await response.json();
   } finally {
     clearTimeout(timeout);
     signal?.removeEventListener('abort', abort);
