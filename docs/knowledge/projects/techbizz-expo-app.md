@@ -8,6 +8,8 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 
 - **Decision.** The app opens on Tech Bizz. Its Company screen uses selected personal portfolio data for the CEO profile. See the [company app implementation plan](../plans/completed/company-app-front-door.md).
 
+- **Plan.** The [Expo company app redesign](../plans/ongoing/expo-company-ui-redesign.md) defines the project inquiry flow, screen hierarchy, and casing conventions.
+
 ## P1 · Architecture and workflow
 
 - **Workflow.** Use the [API contract and typing guide](../topics/api-contracts-and-typing.md) for portfolio feeds and new API integrations.
