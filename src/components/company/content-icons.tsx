@@ -1,5 +1,6 @@
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
-import { useColorScheme } from 'react-native';
+
+import { useTheme } from '@/hooks/use-theme';
 
 const symbols = {
   'web-development': { ios: 'globe', android: 'work', web: 'work' },
@@ -18,7 +19,7 @@ const symbols = {
 export type CompanyIconId = keyof typeof symbols;
 
 export function ContentIcon({ id, size = 28 }: { id: string; size?: number }) {
-  const tintColor = useColorScheme() === 'dark' ? '#FDBA74' : '#C2410C';
+  const tintColor = useTheme().action;
   const name = symbols[id as CompanyIconId] ?? { ios: 'briefcase', android: 'work', web: 'work' };
   return <SymbolView name={name as SymbolViewProps['name']} size={size} tintColor={tintColor} />;
 }

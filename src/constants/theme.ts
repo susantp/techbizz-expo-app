@@ -9,19 +9,33 @@ import { Platform } from 'react-native';
 
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    text: '#211B17',
+    background: '#FAF8F4',
+    backgroundElement: '#FFFFFF',
+    backgroundSelected: '#EEE7DC',
+    textSecondary: '#625A52',
+    divider: '#DED6CB',
+    action: '#B43B18',
+    actionText: '#FFFFFF',
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    text: '#F6F0E8',
+    background: '#171411',
+    backgroundElement: '#23201C',
+    backgroundSelected: '#332C25',
+    textSecondary: '#C2B7AB',
+    divider: '#413A33',
+    action: '#FF9B70',
+    actionText: '#211B17',
   },
+} as const;
+
+export const CompanyTypography = {
+  hero: { fontSize: 34, lineHeight: 40, fontWeight: '700' },
+  page: { fontSize: 26, lineHeight: 32, fontWeight: '700' },
+  section: { fontSize: 20, lineHeight: 26, fontWeight: '700' },
+  body: { fontSize: 16, lineHeight: 24 },
+  supporting: { fontSize: 14, lineHeight: 20 },
 } as const;
 
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
@@ -62,4 +76,4 @@ export const Spacing = {
 } as const;
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export const MaxContentWidth = 720;

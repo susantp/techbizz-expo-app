@@ -1,6 +1,7 @@
 # Expo company app redesign
 
-Status: Ready
+Status: Completed
+Completed: 2026-11-15
 
 Prepared 2026-11-15. Work in `/Users/apache/techbizz/techbizz-expo-app` from `c3d332e`. Preserve the existing local IDE inspection change. Read `AGENTS.md`, the [handoff checklist](../../topics/plan-handoff.md), and the [device runbook](../../topics/expo-device-smoke-check.md). The portfolio repos are read-only content sources at company `21774bb` and personal `513ec32`. Implementation begins when requested.
 
@@ -49,3 +50,13 @@ For an unknown slug, use the feed title and description as supplied. Visually cl
 - When acceptance passes, record the result and date, mark Completed, move this document to `plans/completed/`, and update its project-note link. If a commit is authorized, stage the explicit task files, inspect staged changes, and commit locally as `feat: redesign Expo company experience`. Record any unresolved checks and their concrete resume step.
 
 References: [Expo SDK 58 native tabs](https://docs.expo.dev/versions/v58.0.0/sdk/router/native-tabs/), [Expo Router modal and form sheet guide](https://docs.expo.dev/router/advanced/modals/).
+
+## Verification log · 2026-11-15
+
+- Plan committed as `719a6af` before implementation. Built company `21774bb` and personal `513ec32` using the linked local server commands. Used Expo on port 8081 with the local origin values passed in the process environment. Both sibling source working trees remained clean.
+- `bun install --frozen-lockfile`, `bun run lint --no-cache`, `bun run typecheck`, `bun run export`, and `git diff --check` passed. The first type check needed Metro to regenerate the route declarations after the route moves. The export included Android, iOS, web, and both Expo proxies.
+- `bun /tmp/techbizz-redesign-check.mjs` passed exact API parity with both upstreams, the Home first viewport, contact round trips from each entry point, session request counts, direct routes and reloads, and light/dark layouts at 320, 390 and 1280 px. A 320 px tab bar overflow was fixed. An earlier repeat of the development server sweep timed out on Home. The isolated final sweep passed.
+- `bun /tmp/techbizz-redesign-heading.mjs` checked the rendered heading and action inventory and the fallback to Home after opening Contact directly or via the legacy URL. `bun /tmp/techbizz-redesign-states.mjs` checked keyboard focus and Enter at 200% CSS zoom, independent retry for both feeds, channel availability, WhatsApp and email URLs, and a rejected opener. Contact destinations were stubbed in the browser. No messages or submissions were sent.
+- `python3 /tmp/techbizz-redesign-android.py` drove Expo Go 58.0.5 on `emulator-5554` with ADB input and UI hierarchy assertions. Verified Home, Services, service details and return, Contact sheet and return from Home and detail, and the Company CEO card. A cold startup error cleared on relaunch. A separate check at Android font scale 1.4 verified both contact options and Close. Restored the system setting afterward.
+- iPhone 17 on iOS 26.0 with Expo Go 58.0.7 passed XCTest navigation through all tabs, service detail and return, Contact sheet and return from Home and detail, and the CEO portrait. Ran `xcodebuild test -project Smoke.xcodeproj -scheme SmokeTests -destination 'platform=iOS Simulator,id=18E7F95F-897F-45EC-A602-C6F6862C1008' -parallel-testing-enabled NO -derivedDataPath build` in the temporary XCTest project. `Run.xcresult` contains the standard run and screen captures. `Large.xcresult` contains a passing contact check at the simulator’s extra-extra-extra-large text setting. Restored the simulator text size afterward. Native visual review caught lost styles on linked actions and rows. The final captures showed the corrected layouts.
+- `bun /tmp/techbizz-redesign-captures.mjs` captured and compared Home, Services, Company and Contact at 390 px with ready content, using baseline `c3d332e` on port 8082 and the redesign on port 8081. The new Home shows the offer, primary action and service previews in the first viewport. Company shows leadership before the longer copy. Contact has its own channel chooser.

@@ -39,7 +39,7 @@ type TabButtonProps = Omit<TabTriggerSlotProps, 'ref'> & Pick<ComponentProps<typ
 
 export function TabButton({ children, isFocused, ...props }: TabButtonProps) {
   return (
-    <Pressable {...props} style={({ pressed }) => pressed && styles.pressed}>
+    <Pressable {...props} style={({ pressed }) => [styles.trigger, pressed && styles.pressed]}>
       <ThemedView
         type={isFocused ? 'backgroundSelected' : 'backgroundElement'}
         style={styles.tabButtonView}>
@@ -72,11 +72,12 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingVertical: Spacing.two,
-    paddingHorizontal: Spacing.five,
+    paddingHorizontal: Spacing.two,
     borderRadius: Spacing.five,
     flexDirection: 'row',
     alignItems: 'center',
-    flexGrow: 1,
+    flex: 1,
+    minWidth: 0,
     gap: Spacing.two,
     maxWidth: MaxContentWidth,
     justifyContent: 'space-around',
@@ -85,15 +86,14 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   tabButtonView: {
-    paddingVertical: Spacing.one,
-    paddingHorizontal: Spacing.three,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: Spacing.one,
     borderRadius: Spacing.three,
   },
-  externalPressable: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: Spacing.one,
-    marginLeft: Spacing.three,
+  trigger: {
+    flex: 1,
+    minWidth: 0,
   },
 });
