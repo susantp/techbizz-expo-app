@@ -15,6 +15,7 @@ Source snapshot: main@799eb40, inspected 2026-11-14.
 - **Architecture.** GET /api/content and GET /api/content/about statically return { layout, page } for their corresponding public pages. /api/hello remains a sample endpoint; /api/googleSheetSubmit preserves the existing contact submission behavior.
 - **Workflow.** Run bun install --frozen-lockfile, bun run dev, bun run lint, and bun run build. Read installed Next.js docs per repo AGENTS.md before editing framework APIs. Preserve the TypeScript CLI and JS compiler compatibility aliases when editing the toolchain, as explained in README.md.
 - **Workflow.** The README documents Vercel deployment from main and the standalone Docker path. Check the deployed source commit when releasing.
+- **Bun verification.** On 2026-11-15, commit `21774bb` built and ran in Docker with Bun 1.4.4. The home and About pages and both content APIs returned 200. Invalid contact input returned 400. Vercel reported a successful deployment for that commit, and both public content endpoints returned JSON.
 
 ## P2 · Verification
 
