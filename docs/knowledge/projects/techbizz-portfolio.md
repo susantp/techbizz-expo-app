@@ -4,7 +4,7 @@ Source snapshot: main@799eb40, inspected 2026-11-14.
 
 ## P0 · Project identity and contracts
 
-- **Architecture.** Company services and inquiries website. The layout references www.techbizzsoft.com in its social preview metadata.
+- **Production.** The company website is served at `techbizznepal.com`. Its canonical content endpoint is [www.techbizznepal.com/api/content](https://www.techbizznepal.com/api/content).
 - **Architecture.** The contact form writes to a configured Google Sheet through a same-origin API endpoint. See [Contact submissions](../topics/contact-submissions.md) for the request, storage, and error contracts.
 - **Decision.** See the [completed portfolio content model plan](../plans/completed/portfolio-content-model.md) for the App Router-aligned content model and API implementation.
 

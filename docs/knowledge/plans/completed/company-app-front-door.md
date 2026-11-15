@@ -9,7 +9,7 @@ Prepared 2026-11-15 for GPT-6 Luna. Implementation belongs in the existing check
 
 Tech Bizz is the app identity and Home is the entry point. Launch with Home, Services, and Company. Susant Paudel appears in Company under Leadership as CEO, Tech Bizz. First release contact actions are Email and WhatsApp. Products, apps developed by Tech Bizz, clients, case studies, and the in-app inquiry form are future scope. Add those sections when their data exists. Ship no empty tabs or placeholder sections.
 
-Inspected Expo deea7e9 (SDK 58, npm, typed routes, web server output), company 30d1e1e, and personal 0212232. Both Next.js checkouts are read-only sources for this implementation. The Expo baseline commands npm run lint and npx --no-install tsc --noEmit passed. From this host, company www.techbizzsoft.com failed DNS resolution and the personal www endpoint returned HTTP 404 for /api/content. Both local branches reported one commit ahead of their recorded origin/main. Live availability is a release prerequisite. Implement and verify using the local portfolio servers now. See the [completed API migration](../completed/portfolio-content-model.md).
+Inspected Expo deea7e9 (SDK 58, npm, typed routes, web server output), company 30d1e1e, and personal 0212232. Both Next.js checkouts are read-only sources for this implementation. The Expo baseline commands npm run lint and npx --no-install tsc --noEmit passed. Before deployment, the personal endpoint returned HTTP 404 for /api/content. See the release checks below for the verified production endpoints. Both local branches reported one commit ahead of their recorded origin/main. Live availability is a release prerequisite. Implement and verify using the local portfolio servers now. See the [completed API migration](../completed/portfolio-content-model.md).
 
 ## P1 · Configuration and transport
 
@@ -123,9 +123,9 @@ The initial implementation was committed as `ec22779`. The follow-up verified iO
 
 ### Release checks after portfolio deployment
 
-- `curl -sS --max-time 12 -o /dev/null -w 'company status=%{http_code} dns=%{remote_ip}\\n' https://www.techbizzsoft.com/api/content` — failed DNS resolution (curl exit 6; HTTP status 000).
-- `curl -sS -L --max-time 15 -o /dev/null -w 'personal final_status=%{http_code} final_url=%{url_effective}\\n' https://susantpaudel.com.np/api/content` — followed canonical redirect to `https://www.susantpaudel.com.np/api/content` and returned 404.
-- Unblock production validation when the company hostname resolves to a serving API and the personal `/api/content` endpoint returns the expected JSON. Then rerun both API comparisons using those HTTPS origins and the app's web/native smoke checks. Do not deploy or push as part of this plan.
+- On 2026-11-15, `curl -sSL https://techbizznepal.com/api/content` followed the redirect to `https://www.techbizznepal.com/api/content` and returned HTTP 200 with JSON. The original DNS check used the wrong company hostname.
+- After deployment, `https://www.susantpaudel.com.np/api/content` also returned HTTP 200 with JSON.
+- Use these HTTPS origins for production API comparisons and web and native smoke checks.
 
 ### Platform result
 
