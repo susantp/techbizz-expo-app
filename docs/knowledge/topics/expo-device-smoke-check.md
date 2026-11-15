@@ -2,6 +2,8 @@
 
 Read the task plan for the Expo SDK, local origins, ports, and acceptance scenarios. Start the Expo development server and local dependencies first. Verify they respond from the host before troubleshooting device connectivity.
 
+For a physical Android phone with the Tech Bizz development client, use the [Android USB runbook](android-usb-development.md).
+
 ## Desktop interaction preflight
 
 For Device Hub, prefer the desktop app's **Computer Use** plugin, shown as **Computer** or `@Computer` in supported chats. Before relying on it in a handoff, confirm the local execution session exposes interactive controls and can open Device Hub. On macOS, the plugin needs Screen Recording and Accessibility permissions. If the current session lacks the tool, use an authorized local session with Computer Use enabled, or record the exact taps the user can perform in Device Hub. See [OpenAI's Computer Use setup](https://developers.openai.com/training/walkthroughs/using-your-computer-and-browser).

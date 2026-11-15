@@ -4,6 +4,10 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## Get started
 
+### Development client
+
+Use the EAS `development` profile for a dedicated Tech Bizz client. For a physical Android phone over USB, start Metro with `bun run start:dev-client --localhost`, then run `bun run android:usb /path/to/development.apk` in another terminal. For repeat launches, use `bun run android:usb`. See the [Android USB runbook](docs/knowledge/topics/android-usb-development.md) for setup, API origins, and troubleshooting.
+
 Install Bun 1.4.4 or later. Run `bun run typecheck` to check types and `bun run export` to export all platforms.
 
 1. Install dependencies
