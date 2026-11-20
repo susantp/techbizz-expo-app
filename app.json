@@ -55,6 +55,12 @@
         "projectId": "dc7f37c2-f783-4b5d-a348-bd247f32211a"
       }
     },
-    "owner": "techbizz"
+    "owner": "techbizz",
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dc7f37c2-f783-4b5d-a348-bd247f32211a"
+    }
   }
 }
