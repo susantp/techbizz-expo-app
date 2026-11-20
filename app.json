@@ -13,11 +13,11 @@
     },
     "android": {
       "package": "com.techbizz.portfolio",
+      "icon": "./assets/brand/android-icon.png",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#0D202A",
+        "foregroundImage": "./assets/brand/android-adaptive-foreground.png",
+        "monochromeImage": "./assets/brand/android-adaptive-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -32,7 +32,12 @@
         {
           "backgroundColor": "#208AEF",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 76,
+          "android": {
+            "backgroundColor": "#0D202A",
+            "image": "./assets/brand/android-splash.png",
+            "imageWidth": 144
+          }
         }
       ]
     ],
