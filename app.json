@@ -12,7 +12,7 @@
       "bundleIdentifier": "com.techbizznepal.app"
     },
     "android": {
-      "package": "com.techbizznepal.app",
+      "package": "com.techbizz.portfolio",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

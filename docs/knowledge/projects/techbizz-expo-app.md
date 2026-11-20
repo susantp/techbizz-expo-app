@@ -12,6 +12,8 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 
 ## P1 · Architecture and workflow
 
+- **Release.** The [Tech Bizz Google Play release plan](../plans/ongoing/techbizz-store-release.md) tracks the privacy policy, Android signing, physical device testing, and the first Google Play release.
+
 - **Workflow.** Use the [API contract and typing guide](../topics/api-contracts-and-typing.md) for portfolio feeds and new API integrations.
 - **Decision.** Prefer established libraries for shared infrastructure. Use TanStack Query for remote cache and retry workflows and Jotai when a feature needs shared client state. See the [library and state guide](../topics/library-and-state-choices.md).
 
