@@ -21,6 +21,16 @@ Source snapshot: `main@78a9e03` plus local Expo starter fixes, inspected 2026-11
 - **Architecture.** `package.json` enters through `expo-router/entry`. `src/app/_layout.tsx` sets up theme, splash, the TanStack Query client, portfolio query observers, and tabs for Home, Services, and Company. The native and web tab implementations are `src/components/app-tabs.tsx` and `app-tabs.web.tsx`. Zod schemas and source-specific query functions/options/hooks live in `src/lib/portfolio/`; the shared fetch transport is `src/lib/remote/get-json.ts`. Web same-origin GET proxies are `src/app/api/portfolio/company+api.ts` and `personal+api.ts`. Origins are configured in ignored `.env.local` from the checked-in `.env.example`. Native fetches source APIs directly; web fetches through the Expo API routes. The app uses Continuous Native Generation.
 - **Workflow.** Run `bun install --frozen-lockfile`, `bun run start`, and `bun run lint`. Check types with `bun run typecheck`. Use `bunx --bun expo install --bun` for SDK-compatible dependencies. Follow repo `AGENTS.md` and [SDK 58 docs](https://docs.expo.dev/versions/v58.0.0/). `bun run reset-project` replaces the starter screens after an interactive prompt.
 
+### Android release command
+
+**Rule.** Queue the EAS cloud build and its Google Play Internal testing submission together. Run this command for each authorized new Android release:
+
+```bash
+bunx eas-cli@27.11.0 build --platform android --profile production --auto-submit-with-profile=internal --non-interactive --no-wait
+```
+
+Record both EAS IDs and check the build and submission results before retrying. This command omits `--bun` because forcing the CLI to run under Bun has caused a source upload `Content-Length` mismatch. EAS still uses the production profile’s Bun configuration. For an existing build queued without auto submission, use its exact build ID with `eas submit` once. Promotion beyond Internal testing follows the release plan.
+
 ## P2 · Verification
 
 - **Workflow.** For native acceptance, use the [Expo device smoke check runbook](../topics/expo-device-smoke-check.md).

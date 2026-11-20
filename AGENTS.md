@@ -33,6 +33,8 @@ Run lint and typecheck before declaring any task done.
 ## Building with EAS
 
 Use EAS to build, sign, and submit the app in the cloud (`eas build`, `eas submit`) and to ship over-the-air updates (`eas update`) — no local Xcode or Android Studio required. Run EAS CLI as `bunx --bun eas-cli <command>`.
+
+For new Android releases to Google Play Internal testing, follow the [single-command build and submission rule](docs/knowledge/projects/techbizz-expo-app.md#android-release-command).
 Docs: https://docs.expo.dev/eas/index.md
 
 ## Rules
