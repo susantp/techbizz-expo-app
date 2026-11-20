@@ -39,7 +39,8 @@
             "imageWidth": 144
           }
         }
-      ]
+      ],
+      "./plugins/with-optional-android-portrait.cjs"
     ],
     "experiments": {
       "typedRoutes": true,
